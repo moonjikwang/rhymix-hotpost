@@ -119,6 +119,7 @@ class HotpostModel extends Hotpost
 
 	/**
 	 * Whether the given module_srl is in the filter's target list.
+	 * An empty target list means "all boards" — the filter applies everywhere.
 	 *
 	 * @param object $filter
 	 * @param int $module_srl
@@ -126,6 +127,10 @@ class HotpostModel extends Hotpost
 	 */
 	public static function filterIncludesModule(object $filter, int $module_srl): bool
 	{
+		if (!count($filter->target_modules))
+		{
+			return true;
+		}
 		return in_array($module_srl, array_map('intval', $filter->target_modules), true);
 	}
 

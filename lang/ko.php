@@ -23,7 +23,10 @@ $lang->hotpost_combine_mode_and = '모두 만족 (AND)';
 $lang->hotpost_combine_mode_or = '하나라도 만족 (OR)';
 
 $lang->hotpost_target_modules = '적용 게시판';
-$lang->hotpost_url_guide = '이 필터셋의 인기글 URL';
+$lang->hotpost_target_modules_hint = '선택 안 함 = 전체 게시판에 적용';
+$lang->hotpost_url_guide = 'URL 예시';
+$lang->hotpost_url_target_all = '전체 게시판 적용 (모든 게시판 mid에 사용 가능)';
+$lang->hotpost_url_hint = '실제 사용 시 <게시판mid> 부분을 적용할 게시판의 mid로 교체하세요.';
 $lang->hotpost_no_board = '적용할 게시판이 없습니다. 먼저 게시판을 생성하세요.';
 
 $lang->success_registed = '저장되었습니다.';

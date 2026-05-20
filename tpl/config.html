@@ -73,6 +73,7 @@
 
 		<div class="hp-row">
 			<strong>{$lang->hotpost_target_modules}</strong>
+			<small class="gray"> — {$lang->hotpost_target_modules_hint}</small>
 			<div class="hp-boards">
 				<!--@foreach($board_list as $board)-->
 				<label>
@@ -83,14 +84,14 @@
 			</div>
 		</div>
 
-		<!--@if(count($row->urls))-->
+		<!--@if($row->example_url)-->
 		<div class="hp-row hp-urls">
 			<strong>{$lang->hotpost_url_guide}</strong>
-			<!--@foreach($row->urls as $u)-->
-			<div style="margin-top:4px;"><small>{$u->browser_title} ({$u->mid})</small>
-				<input type="text" readonly value="{$u->url}" onclick="this.select();" />
+			<!--@if($row->target_all)--><small class="gray"> — {$lang->hotpost_url_target_all}</small><!--@end-->
+			<div style="margin-top:4px;">
+				<input type="text" readonly value="{$row->example_url}" onclick="this.select();" />
 			</div>
-			<!--@end-->
+			<small class="gray">{$lang->hotpost_url_hint}</small>
 		</div>
 		<!--@end-->
 	</div>

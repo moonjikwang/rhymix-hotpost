@@ -23,7 +23,10 @@ $lang->hotpost_combine_mode_and = 'All (AND)';
 $lang->hotpost_combine_mode_or = 'Any (OR)';
 
 $lang->hotpost_target_modules = 'Target boards';
-$lang->hotpost_url_guide = 'URLs for this filter set';
+$lang->hotpost_target_modules_hint = 'No selection = applies to all boards';
+$lang->hotpost_url_guide = 'URL example';
+$lang->hotpost_url_target_all = 'Applies to all boards (use with any board mid)';
+$lang->hotpost_url_hint = 'Replace <게시판mid> with the actual mid of the board you want to apply this filter to.';
 $lang->hotpost_no_board = 'No boards available. Create a board first.';
 
 $lang->success_registed = 'Saved successfully.';

@@ -30,7 +30,7 @@ class HotpostAdminView extends Hotpost
 		$mid_list = ModuleModel::getMidList($args, array('module_srl', 'mid', 'browser_title'));
 		$board_list = is_array($mid_list) ? array_values($mid_list) : array();
 
-		// Pre-compute filter URLs per board for each filter set.
+		// Pre-compute one example URL per filter set (admin only needs to see the pattern).
 		$filter_view = array();
 		foreach ($config->filters as $i => $filter)
 		{
@@ -38,21 +38,15 @@ class HotpostAdminView extends Hotpost
 			$row->index = $i;
 			$row->display_index = $i + 1;
 			$row->filter = $filter;
-			$row->urls = array();
-			if ($filter->query_param !== '' && count($filter->target_modules))
+			$row->example_url = '';
+			$row->target_all = !count($filter->target_modules);
+			if ($filter->query_param !== '')
 			{
-				$target_set = array_map('intval', $filter->target_modules);
-				foreach ($board_list as $b)
-				{
-					if (in_array(intval($b->module_srl), $target_set, true))
-					{
-						$entry = new stdClass;
-						$entry->mid = $b->mid;
-						$entry->browser_title = $b->browser_title;
-						$entry->url = HotpostModel::getFilterUrl($filter, $b->mid);
-						$row->urls[] = $entry;
-					}
-				}
+				// Build a real full URL with a placeholder mid, then swap the placeholder
+				// in for a Korean label. The URL respects the site's rewrite settings.
+				$placeholder = '__BOARDMID__';
+				$full = getNotEncodedFullUrl('', 'mid', $placeholder, $filter->query_param, 'Y');
+				$row->example_url = str_replace($placeholder, '<게시판mid>', $full);
 			}
 			$filter_view[] = $row;
 		}
