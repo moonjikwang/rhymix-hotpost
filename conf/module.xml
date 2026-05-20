@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants />
+	<permissions />
+	<actions>
+		<!-- Admin: configuration -->
+		<action name="dispHotpostAdminConfig" type="view" admin_index="true" setup_index="true" menu_name="hotpost" menu_index="true" />
+		<action name="procHotpostAdminInsertConfig" type="controller" />
+	</actions>
+	<eventHandlers>
+		<eventHandler before="document.getDocumentList" class="controller" method="triggerFilterDocumentList" />
+	</eventHandlers>
+	<menus>
+		<menu name="hotpost" type="all">
+			<title xml:lang="ko">인기글 모듈</title>
+			<title xml:lang="en">Hotpost</title>
+		</menu>
+	</menus>
+</module>

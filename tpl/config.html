@@ -1,0 +1,113 @@
+<!--#include("./header.html")-->
+<load target="js/admin_config.js" />
+
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/hotpost/tpl/config/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<style>
+.hp-filter { border:1px solid #ddd; border-radius:4px; padding:14px 16px; margin:12px 0; background:#fafafa; }
+.hp-filter h4 { margin:0 0 10px; font-size:14px; }
+.hp-filter .hp-row { margin:8px 0; }
+.hp-filter .hp-row label.hp-inline { display:inline-block; margin-right:14px; }
+.hp-filter input[type=text], .hp-filter input[type=number] { padding:4px 8px; }
+.hp-filter .hp-boards { max-height:160px; overflow:auto; border:1px solid #e5e5e5; padding:8px; background:#fff; }
+.hp-filter .hp-boards label { display:inline-block; width:32%; padding:3px 0; }
+.hp-filter .hp-urls { background:#fff; border:1px solid #e5e5e5; padding:8px; }
+.hp-filter .hp-urls input { width:100%; }
+.hp-filter .hp-remove { float:right; }
+.hp-add { margin:8px 0 16px; }
+</style>
+
+<form action="./" method="post" id="fo_hotpost">
+<input type="hidden" name="module" value="admin" />
+<input type="hidden" name="act" value="procHotpostAdminInsertConfig" />
+<input type="hidden" name="xe_validator_id" value="modules/hotpost/tpl/config/1" />
+
+<p class="x_help-block">{$lang->hotpost_intro}</p>
+
+<!--@if(!count($board_list))-->
+<p>{$lang->hotpost_no_board}</p>
+<!--@else-->
+
+<div id="hp-filters">
+	<!--@foreach($filter_view as $row)-->
+	<div class="hp-filter" data-idx="{$row->index}">
+		<button type="button" class="x_btn x_btn-default hp-remove" onclick="hpRemove(this)">{$lang->hotpost_remove_filter}</button>
+		<h4>{$lang->hotpost_filter} #{$row->display_index}</h4>
+
+		<div class="hp-row">
+			<label class="hp-inline"><strong>{$lang->hotpost_filter_name}</strong>
+				<input type="text" name="filters[{$row->index}][name]" value="{$row->filter->name}" placeholder="{$lang->hotpost_filter_name_placeholder}" class="x_form-control" style="width:260px;" />
+			</label>
+			<label class="hp-inline"><strong>{$lang->hotpost_query_param}</strong>
+				<input type="text" name="filters[{$row->index}][query_param]" value="{$row->filter->query_param}" placeholder="hotpost" class="x_form-control" style="width:200px;" maxlength="32" />
+			</label>
+		</div>
+
+		<div class="hp-row">
+			<label class="hp-inline">{$lang->hotpost_min_readed_count}
+				<input type="number" min="0" name="filters[{$row->index}][min_readed_count]" value="{$row->filter->min_readed_count}" class="x_form-control" style="width:100px;" />
+			</label>
+			<label class="hp-inline">{$lang->hotpost_min_voted_count}
+				<input type="number" min="0" name="filters[{$row->index}][min_voted_count]" value="{$row->filter->min_voted_count}" class="x_form-control" style="width:100px;" />
+			</label>
+			<label class="hp-inline">{$lang->hotpost_min_comment_count}
+				<input type="number" min="0" name="filters[{$row->index}][min_comment_count]" value="{$row->filter->min_comment_count}" class="x_form-control" style="width:100px;" />
+			</label>
+			<label class="hp-inline">{$lang->hotpost_period_days}
+				<input type="number" min="0" name="filters[{$row->index}][period_days]" value="{$row->filter->period_days}" class="x_form-control" style="width:80px;" />
+			</label>
+		</div>
+
+		<div class="hp-row">
+			<label class="hp-inline">
+				<input type="radio" name="filters[{$row->index}][combine_mode]" value="and" <!--@if($row->filter->combine_mode != 'or')-->checked="checked"<!--@end--> />
+				{$lang->hotpost_combine_mode_and}
+			</label>
+			<label class="hp-inline">
+				<input type="radio" name="filters[{$row->index}][combine_mode]" value="or" <!--@if($row->filter->combine_mode == 'or')-->checked="checked"<!--@end--> />
+				{$lang->hotpost_combine_mode_or}
+			</label>
+		</div>
+
+		<div class="hp-row">
+			<strong>{$lang->hotpost_target_modules}</strong>
+			<div class="hp-boards">
+				<!--@foreach($board_list as $board)-->
+				<label>
+					<input type="checkbox" name="filters[{$row->index}][target_modules][]" value="{$board->module_srl}" <!--@if(in_array($board->module_srl, array_map('intval', $row->filter->target_modules)))-->checked="checked"<!--@end--> />
+					{$board->browser_title} <span class="gray">({$board->mid})</span>
+				</label>
+				<!--@end-->
+			</div>
+		</div>
+
+		<!--@if(count($row->urls))-->
+		<div class="hp-row hp-urls">
+			<strong>{$lang->hotpost_url_guide}</strong>
+			<!--@foreach($row->urls as $u)-->
+			<div style="margin-top:4px;"><small>{$u->browser_title} ({$u->mid})</small>
+				<input type="text" readonly value="{$u->url}" onclick="this.select();" />
+			</div>
+			<!--@end-->
+		</div>
+		<!--@end-->
+	</div>
+	<!--@end-->
+</div>
+
+<div class="hp-add">
+	<button type="button" class="x_btn x_btn-primary" onclick="hpAdd()">{$lang->hotpost_add_filter}</button>
+</div>
+
+<div class="btnArea">
+	<input class="x_btn" type="submit" value="{$lang->cmd_registration}" />
+</div>
+<!--@end-->
+</form>
+
+<script>
+window.HOTPOST_BOARDS = {$boards_json};
+window.HOTPOST_LANG = {$lang_json};
+</script>

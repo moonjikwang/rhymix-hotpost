@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">인기글 모듈</title>
+	<title xml:lang="en">Hotpost</title>
+	<description xml:lang="ko">조회수, 추천수, 댓글수 등의 조건을 만족하는 게시글만 필터링해서 보여주는 모듈입니다. 게시판 목록 페이지에 '베스트 인기글' / '개념글' 버튼으로 연결할 수 있습니다.</description>
+	<description xml:lang="en">Filters board documents by view/vote/comment count thresholds and shows the qualifying posts. Designed to be linked from a "Best" or "Featured" button on the board list page.</description>
+	<version>1.0.0</version>
+	<date>2026-05-20</date>
+	<category>service</category>
+	<author email_address="moonjikwang@naver.com" link="https://jikwang.net">
+		<name xml:lang="ko">딱따고기</name>
+		<name xml:lang="en">딱따고기</name>
+	</author>
+</module>
