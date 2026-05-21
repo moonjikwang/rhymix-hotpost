@@ -56,9 +56,11 @@
 				<input type="number" min="0" name="filters[{$row->index}][min_comment_count]" value="{$row->filter->min_comment_count}" class="x_form-control" style="width:100px;" />
 			</label>
 			<label class="hp-inline">{$lang->hotpost_period_days}
-				<input type="number" min="0" name="filters[{$row->index}][period_days]" value="{$row->filter->period_days}" class="x_form-control" style="width:80px;" />
+				<input type="number" min="0" name="filters[{$row->index}][period_days]" value="{$row->filter->period_days}" class="x_form-control hp-period" style="width:80px;" />
 			</label>
 		</div>
+
+		<div class="hp-row hp-period-warn" style="color:#c0392b;<!--@if(!$row->warn_period)-->display:none;<!--@end-->">⚠ {$period_warning}</div>
 
 		<div class="hp-row">
 			<label class="hp-inline">
@@ -111,4 +113,5 @@
 <script>
 window.HOTPOST_BOARDS = {$boards_json};
 window.HOTPOST_LANG = {$lang_json};
+window.HOTPOST_LIMITS = { period_default: {$period_default}, period_warn_max: {$period_warn_max} };
 </script>

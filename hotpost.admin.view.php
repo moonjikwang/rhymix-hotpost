@@ -30,6 +30,8 @@ class HotpostAdminView extends Hotpost
 		$mid_list = ModuleModel::getMidList($args, array('module_srl', 'mid', 'browser_title'));
 		$board_list = is_array($mid_list) ? array_values($mid_list) : array();
 
+		$warn_max = self::RECOMMENDED_MAX_PERIOD_DAYS;
+
 		// Pre-compute one example URL per filter set (admin only needs to see the pattern).
 		$filter_view = array();
 		foreach ($config->filters as $i => $filter)
@@ -40,6 +42,8 @@ class HotpostAdminView extends Hotpost
 			$row->filter = $filter;
 			$row->example_url = '';
 			$row->target_all = !count($filter->target_modules);
+			// Warn when the period is unlimited (0) or longer than recommended.
+			$row->warn_period = ($filter->period_days === 0 || $filter->period_days > $warn_max);
 			if ($filter->query_param !== '')
 			{
 				// Build a real full URL with a placeholder mid, then swap the placeholder
@@ -50,6 +54,8 @@ class HotpostAdminView extends Hotpost
 			}
 			$filter_view[] = $row;
 		}
+
+		$period_warning = sprintf($this->_l('hotpost_period_warning'), $warn_max);
 
 		// Build JSON payload used by the add-filter JS template.
 		$js_boards = array();
@@ -77,6 +83,7 @@ class HotpostAdminView extends Hotpost
 			'combine_or' => $this->_l('hotpost_combine_mode_or'),
 			'target_modules' => $this->_l('hotpost_target_modules'),
 			'confirm_remove' => $this->_l('hotpost_confirm_remove'),
+			'period_warning' => $period_warning,
 		);
 		$lang_json = json_encode($js_lang, $json_flags);
 
@@ -85,6 +92,9 @@ class HotpostAdminView extends Hotpost
 		Context::set('filter_view', $filter_view);
 		Context::set('boards_json', $boards_json);
 		Context::set('lang_json', $lang_json);
+		Context::set('period_warning', $period_warning);
+		Context::set('period_default', self::DEFAULT_PERIOD_DAYS);
+		Context::set('period_warn_max', $warn_max);
 		$this->setTemplateFile('config');
 	}
 

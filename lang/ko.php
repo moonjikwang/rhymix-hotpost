@@ -22,6 +22,8 @@ $lang->hotpost_period_days = '기간(일)';
 $lang->hotpost_combine_mode_and = '모두 만족 (AND)';
 $lang->hotpost_combine_mode_or = '하나라도 만족 (OR)';
 
+$lang->hotpost_period_warning = '권장 기간(%d일)을 초과하거나 무제한(0)으로 두면 게시글이 많은 게시판에서 조회 부하가 커질 수 있습니다. 가능하면 기간을 짧게 설정하세요.';
+
 $lang->hotpost_target_modules = '적용 게시판';
 $lang->hotpost_target_modules_hint = '선택 안 함 = 전체 게시판에 적용';
 $lang->hotpost_url_guide = 'URL 예시';

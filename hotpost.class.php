@@ -7,6 +7,17 @@
 class Hotpost extends ModuleObject
 {
 	/**
+	 * Default period (in days) for a newly added filter set.
+	 */
+	const DEFAULT_PERIOD_DAYS = 30;
+
+	/**
+	 * Recommended maximum period (in days). Going over this — or setting
+	 * 0 (unlimited) — triggers a performance warning in the admin form.
+	 */
+	const RECOMMENDED_MAX_PERIOD_DAYS = 30;
+
+	/**
 	 * Default configuration values.
 	 *
 	 * @var array

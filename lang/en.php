@@ -22,6 +22,8 @@ $lang->hotpost_period_days = 'Period (days)';
 $lang->hotpost_combine_mode_and = 'All (AND)';
 $lang->hotpost_combine_mode_or = 'Any (OR)';
 
+$lang->hotpost_period_warning = 'Setting the period longer than the recommended %d days — or to unlimited (0) — may increase query load on boards with many posts. Use a shorter period when possible.';
+
 $lang->hotpost_target_modules = 'Target boards';
 $lang->hotpost_target_modules_hint = 'No selection = applies to all boards';
 $lang->hotpost_url_guide = 'URL example';
